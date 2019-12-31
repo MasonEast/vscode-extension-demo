@@ -1,35 +1,40 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
+// const sharp = require("sharp")
+
 const vscode = require('vscode');
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-
-/**
- * @param {vscode.ExtensionContext} context
- */
-
+//插件激活时调用activate方法， 关闭时调用deactivate方法
 function activate (context) {
+    console.log('你的插件被激活了!');
 
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "masondemo" is now active!');
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with  registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.helloWorld', function () {
-        // The code you place here will be executed every time your command is executed
-
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World!');
+    vscode.window.activeTextEditor.edit(editBuilder => {
+        // 从开始到结束，全量替换
+        const end = new vscode.Position(vscode.window.activeTextEditor.document.lineCount + 1, 0);
+        const text = '新替换的内容';
+        editBuilder.replace(new vscode.Range(new vscode.Position(0, 0), end), text);
     });
 
-    context.subscriptions.push(disposable);
+
+
+    //通过registerCommand注册命令， 但是注册的命令必须在package.json中声明好
+    context.subscriptions.push(vscode.commands.registerCommand('extension.coolmason', () => {
+        vscode.window.showInformationMessage('cool');
+    }));
+
+    //该方法第二个参数支持一个可选参数uri
+    context.subscriptions.push(vscode.commands.registerCommand('extension.demo.svg2png', (args) => {
+        console.log(args)
+    }));
+
+    // 编辑器命令
+    context.subscriptions.push(vscode.commands.registerTextEditorCommand('extension.testEditorCommand', (textEditor, edit) => {
+        console.log('您正在执行编辑器命令！');
+        console.log(textEditor, edit);
+    }));
+
+    //注意： 命令注册好后都要push到subscriptions中
 }
 exports.activate = activate;
 
-// this method is called when your extension is deactivated
 function deactivate () { }
 
 module.exports = {

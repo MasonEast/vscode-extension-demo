@@ -1,38 +1,119 @@
 {
-	"name": "masondemo",
-	"displayName": "masonDemo",
-	"description": "a demo for vscode",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.41.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:extension.helloWorld"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.41.0",
-		"eslint": "^6.6.0",
-		"glob": "^7.1.5",
-		"mocha": "^6.2.2",
-		"typescript": "^3.6.4",
-		"vscode-test": "^1.2.2"
-	}
+    "name": "masondemo",
+    "displayName": "masonDemo",
+    "description": "a demo for vscode",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.41.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.coolmason",
+        "*"
+    ],
+    "main": "./extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.getTest",
+                "title": "cool test"
+            },
+            {
+                "command": "extension.helloWorld",
+                "title": "Hello World"
+            },
+            {
+                "command": "extension.demo.svg2png",
+                "title": "svg转为png",
+                "icon": {
+                    "light": "./images/tool-light.svg",
+                    "dark": "./images/tool-light.svg"
+                }
+            }
+        ],
+        "menus": {
+            "editor/title": [
+                {
+                    "when": "resourceLangId == markdown",
+                    "command": "markdown.showPreview",
+                    "alt": "markdown.showPreviewToSide",
+                    "group": "navigation"
+                }
+            ],
+            "editor/context": [
+                {
+                    "when": "editorFocus",
+                    "command": "extension.demo.svg2png",
+                    "group": "navigation"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "extension.demo.svg2png",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "keybindings": [
+            {
+                "command": "extension.coolmason",
+                "key": "ctrl+alt+m",
+                "mac": "ctrl+cmd+m",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.coolmason2",
+                "key": "ctrl+alt+n",
+                "mac": "ctrl+cmd+n",
+                "when": "editorTextFocus"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "beautifulGirl",
+                    "title": "美女",
+                    "icon": "images/1.svg"
+                }
+            ]
+        },
+        "views": {
+            "beautifulGirl": [
+                {
+                    "id": "beautifulGirl1",
+                    "name": "国内美女"
+                },
+                {
+                    "id": "beautifulGirl2",
+                    "name": "国外美女"
+                },
+                {
+                    "id": "beautifulGirl3",
+                    "name": "人妖"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "test": "node ./test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^5.2.7",
+        "@types/node": "^12.11.7",
+        "@types/vscode": "^1.41.0",
+        "eslint": "^6.6.0",
+        "glob": "^7.1.5",
+        "mocha": "^6.2.2",
+        "typescript": "^3.6.4",
+        "vscode-test": "^1.2.2"
+    },
+    "dependencies": {
+        "convert-svg-to-png": "^0.5.0",
+        "moment": "^2.24.0",
+        "save-svg-as-png": "^1.4.14",
+        "sharp": "^0.23.4"
+    }
 }
